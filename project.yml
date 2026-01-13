@@ -1,0 +1,62 @@
+name: Onepazz
+options:
+  deploymentTarget:
+    iOS: "16.0"
+  createIntermediateGroups: true
+  xcodeVersion: "15.0"
+  developmentLanguage: en
+
+settings:
+  base:
+    SWIFT_VERSION: 5.9
+    PRODUCT_BUNDLE_IDENTIFIER: app.onepazz.ios
+    CODE_SIGN_STYLE: Automatic
+    IPHONEOS_DEPLOYMENT_TARGET: 16.0
+    CURRENT_PROJECT_VERSION: 1
+    MARKETING_VERSION: 1.0.0
+    ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+    INFOPLIST_FILE: Onepazz/App/Info.plist
+
+packages: {}
+
+targets:
+  Onepazz:
+    type: application
+    platform: iOS
+    sources:
+      - path: Onepazz
+        excludes:
+          - "**/*.md"
+          - "**/*.plist" # plist handled explicitly
+    resources:
+      - path: Onepazz/Resources
+        optional: true
+      - path: Onepazz/Assets.xcassets
+        optional: true
+      - path: Onepazz/**/Localizable.strings
+        optional: true
+      - path: Onepazz/**/Info.plist
+    settings:
+      base:
+        PRODUCT_NAME: Onepazz
+        TARGETED_DEVICE_FAMILY: "1,2"
+        ENABLE_USER_SCRIPT_SANDBOXING: NO
+        OTHER_SWIFT_FLAGS: $(inherited)
+    preBuildScripts: []
+    postCompileScripts: []
+    scheme:
+      gatherCoverageData: true
+      testTargets:
+        - OnepazzTests
+
+  OnepazzTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: OnepazzTests
+    settings:
+      base:
+        TEST_HOST: ""
+        BUNDLE_LOADER: ""
+    dependencies:
+      - target: Onepazz
