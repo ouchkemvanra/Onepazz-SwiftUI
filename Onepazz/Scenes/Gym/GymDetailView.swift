@@ -54,7 +54,8 @@ struct GymDetailView: View {
         .overlay(alignment: .bottom) {
             GetDirectionButton(address: gym.address)
         }
-        .hideTabBarAndScanButton()
+        .toolbar(.hidden, for:.tabBar)
+        .scanButtonVisible(false) 
         .customBackButton()
     }
 }
@@ -115,7 +116,7 @@ struct GymInfoSection: View {
                 .foregroundStyle(AppColor.textSecondary)
 
             VStack(alignment: .leading, spacing: Spacing.s) {
-                Text("About")
+                Text("about".localized)
                     .appFont(.headline)
                     .foregroundStyle(AppColor.textPrimary)
 
@@ -136,7 +137,7 @@ struct FacilitiesSection: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: Spacing.m) {
-            Text("This place offer facilities such as:")
+            Text("facilities".localized)
                 .appFont(.subhead)
                 .foregroundStyle(AppColor.textSecondary)
 
@@ -167,7 +168,7 @@ struct ClassScheduleSection: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: Spacing.l) {
-            Text("Class Schedule")
+            Text("class_schedule".localized)
                 .appFont(.headline)
                 .foregroundStyle(AppColor.textPrimary)
 
@@ -178,11 +179,11 @@ struct ClassScheduleSection: View {
                             .appFont(.body)
                             .foregroundStyle(AppColor.textPrimary)
 
-                        Text("Day: \(schedule.days)")
+                        Text("day".localized(schedule.days))
                             .appFont(.subhead)
                             .foregroundStyle(AppColor.textSecondary)
 
-                        Text("Time: \(schedule.time)")
+                        Text("time".localized(schedule.time))
                             .appFont(.subhead)
                             .foregroundStyle(AppColor.textSecondary)
                     }
@@ -199,7 +200,7 @@ struct OpeningHoursSection: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: Spacing.m) {
-            Text("Opening Hour")
+            Text("opening_hour".localized)
                 .appFont(.headline)
                 .foregroundStyle(AppColor.textPrimary)
 
@@ -208,7 +209,7 @@ struct OpeningHoursSection: View {
                     .appFont(.subhead)
                     .foregroundStyle(AppColor.textSecondary)
 
-                Text("From \(openingHours.openTime) to \(openingHours.closeTime)")
+                Text("from_to_time".localized(openingHours.openTime, openingHours.closeTime))
                     .appFont(.body)
                     .fontWeight(.semibold)
                     .foregroundStyle(AppColor.textPrimary)
@@ -231,7 +232,7 @@ struct RatingReviewsSection: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: Spacing.l) {
-            Text("Rating and Reviews")
+            Text("rating_reviews".localized)
                 .appFont(.headline)
                 .foregroundStyle(AppColor.textPrimary)
 
@@ -265,7 +266,7 @@ struct ReviewCard: View {
                     .foregroundStyle(AppColor.textPrimary)
 
                 HStack(spacing: 2) {
-                    Text("Rating: \(String(format: "%.1f", review.rating))")
+                    Text("rating".localized(String(format: "%.1f", review.rating)))
                         .appFont(.caption)
                         .foregroundStyle(AppColor.textSecondary)
 
@@ -318,7 +319,7 @@ struct GetDirectionButton: View {
                 Button {
                     // Handle get direction
                 } label: {
-                    Text("Get Direction")
+                    Text("get_direction".localized)
                         .appFont(.subhead)
                         .foregroundStyle(.white)
                         .padding(.horizontal, Spacing.l)

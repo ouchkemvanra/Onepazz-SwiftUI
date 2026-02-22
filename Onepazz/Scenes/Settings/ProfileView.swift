@@ -41,19 +41,19 @@ struct ProfileView: View {
                 .padding(.top, Spacing.l)
 
                 // Personal Information
-                InfoCard(title: "Personal Information") {
-                    InfoRow(label: "Name:", value: userName)
-                    InfoRow(label: "Gender:", value: "Male")
-                    InfoRow(label: "Phone:", value: "070 124 123")
-                    InfoRow(label: "Join Since", value: "October 2023")
-                    InfoRow(label: "Company", value: "Wing Bank")
+                InfoCard(title: "personal_information".localized) {
+                    InfoRow(label: "name".localized, value: userName)
+                    InfoRow(label: "gender".localized, value: "male".localized)
+                    InfoRow(label: "phone".localized, value: "070 124 123")
+                    InfoRow(label: "join_since".localized, value: "October 2023")
+                    InfoRow(label: "company".localized, value: "Wing Bank")
                 }
 
                 // Subscription Information
-                InfoCard(title: "Subscription Information") {
-                    InfoRow(label: "Type", value: "Standard")
-                    InfoRow(label: "Price", value: "$29.99 per month")
-                    InfoRow(label: "Expire Date", value: "June 12 2025")
+                InfoCard(title: "subscription_information".localized) {
+                    InfoRow(label: "type".localized, value: "standard".localized)
+                    InfoRow(label: "price".localized, value: "$29.99 per month")
+                    InfoRow(label: "expire_date".localized, value: "June 12 2025")
 
                     // Subscription Plan Section
                     VStack(alignment: .leading, spacing: Spacing.m) {
@@ -61,7 +61,7 @@ struct ProfileView: View {
                             Button {
                                 // Switch to Basic
                             } label: {
-                                Text("Basic")
+                                Text("basic".localized)
                                     .appFont(.subhead)
                                     .foregroundColor(.white)
                                     .padding(.horizontal, Spacing.l)
@@ -76,11 +76,11 @@ struct ProfileView: View {
                         }
 
                         VStack(alignment: .leading, spacing: Spacing.s) {
-                            Text("Free")
+                            Text("free".localized)
                                 .font(.system(size: 32, weight: .bold))
                                 .foregroundColor(.white)
 
-                            Text("forever")
+                            Text("forever".localized)
                                 .appFont(.subhead)
                                 .foregroundColor(.white.opacity(0.8))
 
@@ -88,7 +88,7 @@ struct ProfileView: View {
                                 HStack(spacing: Spacing.xs) {
                                     Text("•")
                                         .foregroundColor(.white)
-                                    Text("100 gyms")
+                                    Text("100_gyms".localized)
                                         .appFont(.subhead)
                                         .foregroundColor(.white)
                                 }
@@ -96,7 +96,7 @@ struct ProfileView: View {
                                 HStack(spacing: Spacing.xs) {
                                     Text("•")
                                         .foregroundColor(.white)
-                                    Text("20 sport clubs")
+                                    Text("20_sport_clubs".localized)
                                         .appFont(.subhead)
                                         .foregroundColor(.white)
                                 }
@@ -119,7 +119,7 @@ struct ProfileView: View {
 
                 // Subscription History
                 VStack(alignment: .leading, spacing: Spacing.m) {
-                    Text("Subscription History")
+                    Text("subscription_history".localized)
                         .appFont(.headline)
                         .foregroundStyle(AppColor.textPrimary)
 
@@ -135,9 +135,8 @@ struct ProfileView: View {
             }
         }
         .background(Color(.systemGray6))
-        .navigationTitle("Profile")
+        .navigationTitle("profile".localized)
         .navigationBarTitleDisplayMode(.inline)
-        .hideTabBarAndScanButton()
     }
 }
 

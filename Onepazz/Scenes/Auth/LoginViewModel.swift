@@ -3,6 +3,7 @@
 //  Onepazz
 //
 //  Created by Claude on 1/7/26.
+//  Updated on 1/13/26 for OTP flow
 //
 
 import SwiftUI
@@ -18,6 +19,7 @@ final class LoginViewModel: ObservableObject {
     @Published var phoneDigits: String = ""
     @Published var isLoading: Bool = false
     @Published var error: Error?
+    @Published var shouldNavigateToOTP: Bool = false
 
     // MARK: - Dependencies
     private let authRepository: AuthRepositoryProtocol
@@ -37,16 +39,18 @@ final class LoginViewModel: ObservableObject {
     }
 
     // MARK: - Actions
-    func submit() async {
+    func requestOTP() async {
         guard isValid else { return }
 
         isLoading = true
         error = nil
 
         do {
-            let fullPhone = countryCode + phoneDigits
-            // In production, this would request OTP
-            // let _ = try await authRepository.requestOTP(phone: fullPhone)
+            let _ = try await authRepository.requestOTP(
+                phone: phoneDigits,
+                countryCode: countryCode
+            )
+            shouldNavigateToOTP = true
             isLoading = false
         } catch let err {
             error = err

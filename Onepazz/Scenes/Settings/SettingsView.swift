@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @EnvironmentObject var env: AppEnvironment
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: Spacing.xl) {
@@ -32,7 +34,7 @@ struct SettingsView: View {
                         .padding(.horizontal, Spacing.xl)
 
                     SettingsCard {
-                        SettingsRow(icon: "info.circle.fill", title: "About Us", destination: AnyView(Text("About Us")))
+                        SettingsRow(icon: "info.circle.fill", title: "About Us", destination: AnyView(AboutUsView()))
                         Divider().padding(.leading, 56)
                         SettingsRow(icon: "book.circle.fill", title: "Our Story", destination: AnyView(Text("Our Story")))
                         Divider().padding(.leading, 56)
@@ -59,7 +61,10 @@ struct SettingsView: View {
 
                 // Sign Out Button
                 Button {
-                    // Handle sign out
+                    Task {
+                        try? await env.authRepository.logout()
+                        env.sessionManager.clearSession()
+                    }
                 } label: {
                     Text("Sign out")
                         .appFont(.body)
@@ -85,6 +90,7 @@ struct SettingsView: View {
         .background(Color(.systemGray6))
         .navigationTitle("Setting")
         .navigationBarTitleDisplayMode(.large)
+        .scanButtonVisible(true)
     }
 }
 

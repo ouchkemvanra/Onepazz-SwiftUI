@@ -1,10 +1,109 @@
-/* English */
+
 "loading" = "Loading…";
 "error" = "Error";
 "try_again" = "Try again";
 "gyms_title" = "Gyms";
 "no_subs" = "No subscriptions yet";
-"nothing" = "There’s nothing to show right now.";
+"nothing" = "There's nothing to show right now.";
 "uploading" = "Uploading…";
 "downloading" = "Downloading…";
 "login_title" = "Sign in";
+
+// Activity
+"my_activity" = "My Activity";
+"gym" = "Gym";
+"badminton" = "Badminton";
+"january" = "January";
+"check_in" = "Check-in: %@";
+
+// QR Scanner
+"scan_qr" = "Scan QR";
+"verifying" = "Verifying...";
+"failed" = "Failed";
+"access_granted" = "Access Granted";
+"access_granted_message" = "You have just granted access to %@";
+"done" = "Done";
+
+// Auth
+"sign_in" = "Sign In";
+"login_subtitle" = "Enter the phone number that you have registered\nwith Zimmer account.";
+"continue" = "Continue";
+"verify_otp" = "Verify OTP";
+"verify_otp_message" = "Enter the 6-digit code sent to\n%@ %@";
+"verify" = "Verify";
+"didnt_receive_code" = "Didn't receive the code?";
+"resend" = "Resend";
+"resend_countdown" = "Resend in %d s";
+
+// Subscriptions
+"become_member" = "Become a member";
+"continue_purchase" = "Continue to purchase";
+"term_condition" = "Term and Condition";
+"policy" = "Policy";
+"100_gyms" = "100 gyms";
+"50_sport_clubs" = "50 Sport clubs";
+"20_sport_clubs" = "20 sport clubs";
+"monthly" = "Monthly";
+
+// Subscription Plans
+"standard" = "Standard";
+"premium" = "Premium";
+"silver" = "Silver";
+"gold" = "Gold";
+"basic" = "Basic";
+"free" = "Free";
+"forever" = "forever";
+
+// Profile
+"profile" = "Profile";
+"personal_information" = "Personal Information";
+"name" = "Name:";
+"gender" = "Gender:";
+"male" = "Male";
+"phone" = "Phone:";
+"join_since" = "Join Since";
+"company" = "Company";
+"subscription_information" = "Subscription Information";
+"type" = "Type";
+"price" = "Price";
+"expire_date" = "Expire Date";
+"subscription_history" = "Subscription History";
+
+// Home
+"activity" = "Activity";
+"recent_visit" = "Recent Visit";
+"view_all" = "View All";
+"follow_us" = "FOLLOW US";
+"standard_member" = "Standard Member";
+
+// Gym/Partner
+"about" = "About";
+"facilities" = "This place offer facilities such as:";
+"class_schedule" = "Class Schedule";
+"day" = "Day: %@";
+"time" = "Time: %@";
+"opening_hour" = "Opening Hour";
+"from_to_time" = "From %@ to %@";
+"rating_reviews" = "Rating and Reviews";
+"rating" = "Rating: %@";
+"get_direction" = "Get Direction";
+
+// About Us
+"about_us" = "About Us";
+"onepazz" = "Onepazz";
+"onepazz_description" = "Onepazz (HolisticWell) is a digital platform that empowers individuals and organizations to enhance well-being through personalized wellness programs, comprehensive educational resources, and community-driven support. The platform addresses mental health, physical fitness, nutrition, and workplace wellness, targeting individuals and businesses. With a scalable SaaS model and partnerships with wellness professionals, HolisticWell aims to redefine how people approach health in their daily lives.";
+"contact_us" = "Contact Us";
+"call" = "Call  012 123 123";
+"telegram" = "Telegram";
+
+// Explore
+"explore" = "Explore";
+"search" = "Search";
+"all" = "All";
+"food" = "Food";
+"drink" = "Drink";
+"protein" = "Protein";
+"gym_fitness" = "GYM\nFITNESS";
+"join_us" = "JOIN US";
+"discount_50" = "50% DISCOUNT";
+"for_week_only" = "FOR THIS WEEK ONLY";

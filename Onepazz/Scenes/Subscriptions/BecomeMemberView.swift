@@ -9,13 +9,14 @@ import SwiftUI
 
 struct BecomeMemberView: View {
     @State private var selectedPlan: SubscriptionPlan? = .standard
+    @State private var showPayment = false
 
     var body: some View {
         VStack(spacing: 0) {
             ScrollView {
                 VStack(alignment: .leading, spacing: Spacing.xl) {
                     // Title
-                    Text("Become a member")
+                    Text("become_member".localized)
                         .font(.system(size: 34, weight: .bold))
                         .foregroundStyle(AppColor.textPrimary)
                         .padding(.horizontal, Spacing.xl)
@@ -60,9 +61,9 @@ struct BecomeMemberView: View {
             VStack(spacing: Spacing.l) {
                 // Continue Button
                 Button {
-                    // Handle purchase
+                    showPayment = true
                 } label: {
-                    Text("Continue to purchase")
+                    Text("continue_purchase".localized)
                         .font(.system(size: 17, weight: .semibold))
                         .foregroundColor(Color(uiColor: .systemBackground))
                         .frame(maxWidth: .infinity)
@@ -73,13 +74,14 @@ struct BecomeMemberView: View {
                         )
                 }
                 .padding(.horizontal, Spacing.xl)
+                .disabled(selectedPlan == nil)
 
                 // Terms and Policy
                 HStack(spacing: Spacing.m) {
                     Button {
                         // Navigate to Terms
                     } label: {
-                        Text("Term and Condition")
+                        Text("term_condition".localized)
                             .appFont(.body)
                             .foregroundStyle(AppColor.textPrimary)
                     }
@@ -91,7 +93,7 @@ struct BecomeMemberView: View {
                     Button {
                         // Navigate to Policy
                     } label: {
-                        Text("Policy")
+                        Text("policy".localized)
                             .appFont(.body)
                             .foregroundStyle(AppColor.textPrimary)
                     }
@@ -104,7 +106,13 @@ struct BecomeMemberView: View {
         .background(Color(uiColor: .systemBackground))
         .navigationTitle("")
         .navigationBarTitleDisplayMode(.inline)
-        .hideTabBarAndScanButton()
+        .navigationDestination(isPresented: $showPayment) {
+            if let selectedPlan = selectedPlan {
+                PaymentView(selectedPlan: selectedPlan)
+            }
+        }
+        .toolbar(.hidden, for:.tabBar)
+        .scanButtonVisible(false) 
     }
 }
 
@@ -126,13 +134,13 @@ struct SubscriptionCard: View {
                     VStack(alignment: .leading, spacing: 2) {
                         HStack(spacing: 4) {
                             Text("•")
-                            Text("100 gyms")
+                            Text("100_gyms".localized)
                                 .appFont(.caption)
                         }
 
                         HStack(spacing: 4) {
                             Text("•")
-                            Text("50 Sport clubs")
+                            Text("50_sport_clubs".localized)
                                 .appFont(.caption)
                         }
                     }
@@ -146,7 +154,7 @@ struct SubscriptionCard: View {
                         .font(.system(size: 24, weight: .bold))
                         .foregroundStyle(isSelected ? .white : AppColor.textPrimary)
 
-                    Text("Monthly")
+                    Text("monthly".localized)
                         .appFont(.caption)
                         .foregroundStyle(isSelected ? .white.opacity(0.9) : AppColor.textSecondary)
                 }

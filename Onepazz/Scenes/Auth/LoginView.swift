@@ -29,8 +29,8 @@ struct LoginView: View {
 
                     // Title / subtitle
                     VStack(alignment: .leading, spacing: Spacing.s) {
-                        Text("Sign In").appFont(.title2)
-                        Text("Enter the phone number that you have registered\nwith Zimmer account.")
+                        Text("sign_in".localized).appFont(.title2)
+                        Text("login_subtitle".localized)
                             .appFont(.subhead)
                             .foregroundStyle(AppColor.textSecondary)
                             .fixedSize(horizontal: false, vertical: true)
@@ -52,13 +52,14 @@ struct LoginView: View {
 
                     // Continue button
                     Button {
-                        Task { await viewModel.submit() }
+                        Task { await viewModel.requestOTP() }
                     } label: {
                         if viewModel.isLoading {
                             ProgressView()
+                                .tint(.white)
                                 .frame(maxWidth: .infinity)
                         } else {
-                            Text("Continue")
+                            Text("continue".localized)
                                 .frame(maxWidth: .infinity)
                         }
                     }
@@ -70,6 +71,14 @@ struct LoginView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
+        .navigationDestination(isPresented: $viewModel.shouldNavigateToOTP) {
+            OTPVerificationView(
+                phone: viewModel.phoneDigits,
+                countryCode: viewModel.countryCode,
+                authRepository: env.authRepository,
+                sessionManager: env.sessionManager
+            )
+        }
         .alert("Error", isPresented: .constant(viewModel.error != nil)) {
             Button("OK") {
                 viewModel.error = nil

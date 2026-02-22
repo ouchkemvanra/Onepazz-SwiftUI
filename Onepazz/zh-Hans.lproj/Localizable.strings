@@ -8,3 +8,102 @@
 "uploading" = "上传中…";
 "downloading" = "下载中…";
 "login_title" = "登录";
+
+// Activity
+"my_activity" = "我的活动";
+"gym" = "健身房";
+"badminton" = "羽毛球";
+"january" = "一月";
+"check_in" = "签到: %@";
+
+// QR Scanner
+"scan_qr" = "扫描二维码";
+"verifying" = "验证中...";
+"failed" = "失败";
+"access_granted" = "访问已授权";
+"access_granted_message" = "您刚刚授权访问 %@";
+"done" = "完成";
+
+// Auth
+"sign_in" = "登录";
+"login_subtitle" = "输入您在 Zimmer 账户中注册的\n手机号码。";
+"continue" = "继续";
+"verify_otp" = "验证一次性密码";
+"verify_otp_message" = "输入发送到\n%@ %@ 的6位验证码";
+"verify" = "验证";
+"didnt_receive_code" = "没有收到验证码？";
+"resend" = "重新发送";
+"resend_countdown" = "%d秒后重新发送";
+
+// Subscriptions
+"become_member" = "成为会员";
+"continue_purchase" = "继续购买";
+"term_condition" = "条款和条件";
+"policy" = "政策";
+"100_gyms" = "100个健身房";
+"50_sport_clubs" = "50个运动俱乐部";
+"20_sport_clubs" = "20个运动俱乐部";
+"monthly" = "每月";
+
+// Subscription Plans
+"standard" = "标准";
+"premium" = "高级";
+"silver" = "银卡";
+"gold" = "金卡";
+"basic" = "基础";
+"free" = "免费";
+"forever" = "永久";
+
+// Profile
+"profile" = "个人资料";
+"personal_information" = "个人信息";
+"name" = "姓名:";
+"gender" = "性别:";
+"male" = "男";
+"phone" = "电话:";
+"join_since" = "加入时间";
+"company" = "公司";
+"subscription_information" = "订阅信息";
+"type" = "类型";
+"price" = "价格";
+"expire_date" = "到期日期";
+"subscription_history" = "订阅历史";
+
+// Home
+"activity" = "活动";
+"recent_visit" = "最近访问";
+"view_all" = "查看全部";
+"follow_us" = "关注我们";
+"standard_member" = "标准会员";
+
+// Gym/Partner
+"about" = "关于";
+"facilities" = "此场所提供如下设施:";
+"class_schedule" = "课程时间表";
+"day" = "日期: %@";
+"time" = "时间: %@";
+"opening_hour" = "营业时间";
+"from_to_time" = "从 %@ 到 %@";
+"rating_reviews" = "评分和评论";
+"rating" = "评分: %@";
+"get_direction" = "获取路线";
+
+// About Us
+"about_us" = "关于我们";
+"onepazz" = "Onepazz";
+"onepazz_description" = "Onepazz (HolisticWell) 是一个数字平台，通过个性化健康计划、全面的教育资源和社区驱动的支持，赋予个人和组织增强福祉的能力。该平台涉及心理健康、身体健康、营养和工作场所健康，面向个人和企业。凭借可扩展的 SaaS 模式以及与健康专业人员的合作伙伴关系，HolisticWell 旨在重新定义人们在日常生活中对待健康的方式。";
+"contact_us" = "联系我们";
+"call" = "电话  012 123 123";
+"telegram" = "Telegram";
+
+// Explore
+"explore" = "探索";
+"search" = "搜索";
+"all" = "全部";
+"food" = "食品";
+"drink" = "饮料";
+"protein" = "蛋白质";
+"gym_fitness" = "健身房\n健身";
+"join_us" = "加入我们";
+"discount_50" = "5折优惠";
+"for_week_only" = "仅限本周";

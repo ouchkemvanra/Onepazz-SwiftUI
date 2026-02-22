@@ -7,7 +7,7 @@ struct RequestBuilder {
         request.httpMethod = target.httpMethod.rawValue
         var merged: HTTPHeaders = target.defaultHeaders ?? [:]
         if let h = target.headers { for (k,v) in h { merged[k] = v } }
-        if let token { merged["Authorization"] = "Bearer \(token)" }
+        if let token { merged["Authorization"] = "Basic \(token)" }
 
         switch target.task {
         case .requestPlain:
@@ -15,7 +15,7 @@ struct RequestBuilder {
         case .requestJSONEncodable(let payload):
             if let payload {
                 let wrapped = BaseBody(payload)
-                request.httpBody = try JSONEncoder().encode(wrapped)
+                request.httpBody = try JSONEncoder().encode(payload)
                 merged["Content-Type"] = merged["Content-Type"] ?? "application/json"
             }
         case .requestParameters(let body, let urlParams):

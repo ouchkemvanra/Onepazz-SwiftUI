@@ -36,10 +36,10 @@ struct HomePageView: View {
             .padding(.horizontal, Spacing.l)
             .padding(.vertical, Spacing.m)
         }
+        .scanButtonVisible(true) 
         .background(Color(.systemBackground))
         .navigationDestination(for: PartnerRoute.self) { route in
             GymDetailView(gym: .mock)
-                .hideTabBarAndScanButton()
         }
     }
 }

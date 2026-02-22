@@ -7,7 +7,7 @@ import Foundation
             switch self {
             case .production: return URL(string: "https://api.onepazz.com")!
             case .staging: return URL(string: "https://staging-api.onepazz.com")!
-            case .development: return URL(string: "https://dev-api.onepazz.com")!
+            case .development: return URL(string: "http://178.128.62.16:3000/api/v1")!
             }
         }
     }

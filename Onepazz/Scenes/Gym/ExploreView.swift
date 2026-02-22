@@ -36,11 +36,11 @@ struct ExploreView: View {
             .padding(.vertical, Spacing.m)
         }
         .background(Color(.systemBackground))
-        .navigationTitle("Explore")
+        .navigationTitle("explore".localized)
         .navigationBarTitleDisplayMode(.large)
+        .scanButtonVisible(true)
         .navigationDestination(for: PartnerRoute.self) { route in
             GymDetailView(gym: .mock)
-                .hideTabBarAndScanButton()
         }
     }
 
@@ -65,7 +65,7 @@ struct SearchBar: View {
             Image(systemName: "magnifyingglass")
                 .foregroundColor(.gray)
 
-            TextField("Search", text: $text)
+            TextField("search".localized, text: $text)
                 .appFont(.body)
         }
         .padding(Spacing.m)
@@ -135,12 +135,14 @@ struct ExploreGymCard: View {
                 .frame(height: 180)
                 .overlay(
                     VStack {
-                        Text("GYM")
+                        Text("gym".localized)
                             .font(.system(size: 50, weight: .bold))
                             .foregroundColor(.white)
-                        Text("FITNESS")
+                            .textCase(.uppercase)
+                        Text("fitness")
                             .font(.system(size: 50, weight: .bold))
                             .foregroundColor(.white)
+                            .textCase(.uppercase)
                     }
                 )
                 .overlay(
@@ -151,7 +153,7 @@ struct ExploreGymCard: View {
                             Button {
                                 // Handle join
                             } label: {
-                                Text("JOIN US")
+                                Text("join_us".localized)
                                     .appFont(.caption)
                                     .foregroundColor(.black)
                                     .padding(.horizontal, Spacing.l)
@@ -173,12 +175,12 @@ struct ExploreGymCard: View {
                                 HStack(spacing: 4) {
                                     Image(systemName: "tag.fill")
                                         .font(.system(size: 10))
-                                    Text("50% DISCOUNT")
+                                    Text("discount_50".localized)
                                         .font(.system(size: 10, weight: .bold))
                                 }
                                 .foregroundColor(.red)
 
-                                Text("FOR THIS WEEK ONLY")
+                                Text("for_week_only".localized)
                                     .font(.system(size: 8))
                                     .foregroundColor(.gray)
                             }

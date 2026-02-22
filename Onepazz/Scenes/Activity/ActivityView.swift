@@ -44,7 +44,7 @@ struct ActivityView: View {
             .padding(.top, Spacing.m)
         }
         .background(Color(.systemGray6))
-        .navigationTitle("My Activity")
+        .navigationTitle("my_activity".localized)
         .navigationBarTitleDisplayMode(.large)
     }
 }
@@ -227,7 +227,7 @@ struct ActivityChartCard: View {
                         .fill(Color(red: 0.15, green: 0.25, blue: 0.35))
                         .frame(width: 8, height: 8)
 
-                    Text("Gym")
+                    Text("gym".localized)
                         .appFont(.subhead)
                         .foregroundStyle(AppColor.textPrimary)
                 }
@@ -237,7 +237,7 @@ struct ActivityChartCard: View {
                         .fill(Color.cyan)
                         .frame(width: 8, height: 8)
 
-                    Text("Badminton")
+                    Text("badminton".localized)
                         .appFont(.subhead)
                         .foregroundStyle(AppColor.textPrimary)
                 }
@@ -261,7 +261,7 @@ struct MonthlyActivitiesCard: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: Spacing.l) {
-            Text("January")
+            Text("january".localized)
                 .appFont(.headline)
                 .foregroundStyle(AppColor.textPrimary)
 
@@ -274,6 +274,7 @@ struct MonthlyActivitiesCard: View {
         .padding(Spacing.l)
         .background(Color(uiColor: .secondarySystemBackground))
         .cornerRadius(Radius.l)
+        .scanButtonVisible(true)
     }
 }
 
@@ -296,7 +297,7 @@ struct ActivityRow: View {
                     .appFont(.body)
                     .foregroundStyle(AppColor.textPrimary)
 
-                Text("Check-in: \(activity.checkInTime)")
+                Text("check_in".localized(activity.checkInTime))
                     .appFont(.caption)
                     .foregroundStyle(AppColor.textSecondary)
             }

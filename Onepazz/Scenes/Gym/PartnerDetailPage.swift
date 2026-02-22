@@ -122,7 +122,6 @@ struct PartnerDetailPage: View {
         .background(AppColor.background)
         .navigationTitle("")
         .navigationBarTitleDisplayMode(.inline)
-        .hideTabBarAndScanButton()
     }
 }
 
