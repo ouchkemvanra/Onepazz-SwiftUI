@@ -10,6 +10,7 @@ import MapKit
 
 struct AboutUsView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.theme) var theme
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 11.5564, longitude: 104.9282), // Phnom Penh coordinates
         span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
@@ -41,21 +42,21 @@ struct AboutUsView: View {
                 .disabled(true)
 
                 // Content Section
-                VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: theme.spacing.l) {
                     Text("onepazz".localized)
-                        .font(.system(size: 28, weight: .bold))
-                        .foregroundColor(AppColor.textPrimary)
+                        .font(.themed(theme.typography.largeTitle))
+                        .foregroundColor(Color(theme.colors.textPrimary))
 
                     Text("onepazz_description".localized)
-                        .font(.system(size: 15, weight: .regular))
-                        .foregroundColor(AppColor.textSecondary)
+                        .font(.themed(theme.typography.body))
+                        .foregroundColor(Color(theme.colors.textSecondary))
                         .lineSpacing(4)
 
                     // Contact Us Section
-                    VStack(alignment: .leading, spacing: 16) {
+                    VStack(alignment: .leading, spacing: theme.spacing.l) {
                         Text("contact_us".localized)
-                            .font(.system(size: 18, weight: .semibold))
-                            .foregroundColor(AppColor.textPrimary)
+                            .font(.themed(theme.typography.headline))
+                            .foregroundColor(Color(theme.colors.textPrimary))
 
                         // Call Button
                         Button(action: {
@@ -63,18 +64,18 @@ struct AboutUsView: View {
                                 UIApplication.shared.open(url)
                             }
                         }) {
-                            HStack(spacing: 12) {
+                            HStack(spacing: theme.spacing.m) {
                                 Image(systemName: "phone.fill")
-                                    .font(.system(size: 16))
-                                    .foregroundColor(AppColor.textPrimary)
+                                    .font(.system(size: theme.icons.small))
+                                    .foregroundColor(Color(theme.colors.textPrimary))
 
                                 Text("call".localized)
-                                    .font(.system(size: 16, weight: .medium))
-                                    .foregroundColor(AppColor.textPrimary)
+                                    .font(.themed(theme.typography.body))
+                                    .foregroundColor(Color(theme.colors.textPrimary))
 
                                 Spacer()
                             }
-                            .padding(.vertical, 12)
+                            .padding(.vertical, theme.spacing.m)
                         }
 
                         Divider()
@@ -85,23 +86,23 @@ struct AboutUsView: View {
                                 UIApplication.shared.open(url)
                             }
                         }) {
-                            HStack(spacing: 12) {
+                            HStack(spacing: theme.spacing.m) {
                                 Image(systemName: "paperplane.fill")
-                                    .font(.system(size: 16))
-                                    .foregroundColor(AppColor.textPrimary)
+                                    .font(.system(size: theme.icons.small))
+                                    .foregroundColor(Color(theme.colors.textPrimary))
 
                                 Text("telegram".localized)
-                                    .font(.system(size: 16, weight: .medium))
-                                    .foregroundColor(AppColor.textPrimary)
+                                    .font(.themed(theme.typography.body))
+                                    .foregroundColor(Color(theme.colors.textPrimary))
 
                                 Spacer()
                             }
-                            .padding(.vertical, 12)
+                            .padding(.vertical, theme.spacing.m)
                         }
                     }
-                    .padding(.top, 8)
+                    .padding(.top, theme.spacing.s)
                 }
-                .padding(20)
+                .padding(theme.spacing.xl)
             }
         }
         .navigationTitle("about_us".localized)

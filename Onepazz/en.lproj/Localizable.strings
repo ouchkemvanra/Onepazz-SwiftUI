@@ -107,3 +107,10 @@
 "join_us" = "JOIN US";
 "discount_50" = "50% DISCOUNT";
 "for_week_only" = "FOR THIS WEEK ONLY";
+
+// Theme Settings
+"theme_settings" = "Theme Settings";
+"available_themes" = "Available Themes";
+"custom_themes" = "Custom Themes";
+"add_custom_theme" = "Add Custom Theme";
+"custom" = "Custom";

@@ -13,8 +13,8 @@ struct OnepazzApp: App {
                 #endif
             }
             .environmentObject(env)
-            .environmentObject(env.theme)
-            .tint(env.theme.palette.accent)
+            .themed(env.theme)
+            .tint(Color(env.theme.colors.accent))
         }
     }
 }
