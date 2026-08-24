@@ -12,6 +12,10 @@ import Foundation
 /// Follows Interface Segregation Principle - focused on auth operations only
 /// Follows Dependency Inversion Principle - abstracts authentication logic
 protocol AuthRepositoryProtocol {
+    // Result-based methods (preferred - better error handling)
+    func checkPhone(phone: String, countryCode: String) async -> Result<CheckPhoneData, LoginError>
+
+    // Legacy throw-based methods (for backward compatibility)
     func requestOTP(phone: String, countryCode: String) async throws -> OTPResponse
     func verifyOTP(phone: String, countryCode: String, otp: String) async throws -> AuthResponse
     func logout() async throws

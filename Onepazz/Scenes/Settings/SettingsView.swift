@@ -83,7 +83,7 @@ struct SettingsView: View {
                     .appFont(.subhead)
                     .foregroundStyle(AppColor.textPrimary)
                     .frame(maxWidth: .infinity, alignment: .center)
-                    .padding(.bottom, Spacing.xl)
+                    .padding(.bottom, 100)
             }
             .padding(.top, Spacing.m)
         }

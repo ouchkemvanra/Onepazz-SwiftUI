@@ -137,6 +137,7 @@ struct ProfileView: View {
         .background(Color(.systemGray6))
         .navigationTitle("profile".localized)
         .navigationBarTitleDisplayMode(.inline)
+        .scanButtonVisible(false)
     }
 }
 

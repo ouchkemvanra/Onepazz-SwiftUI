@@ -45,6 +45,19 @@
 "20_sport_clubs" = "20 sport clubs";
 "monthly" = "Monthly";
 
+// Payment
+"payment" = "Payment";
+"wing_bank" = "Wing Bank";
+"aba_bank" = "ABA Bank";
+"subscription_price" = "Subscription Price";
+"vat" = "VAT";
+"total" = "Total";
+"payment_instructions" = "After completing payment to above account please copy and paste Txn ID into text input below to complete the process";
+"account_holder_name" = "Account Holder Name:";
+"txn_id" = "Txn ID:";
+"pay" = "PAY";
+"processing" = "Processing...";
+
 // Subscription Plans
 "standard" = "Standard";
 "premium" = "Premium";
@@ -114,3 +127,7 @@
 "custom_themes" = "Custom Themes";
 "add_custom_theme" = "Add Custom Theme";
 "custom" = "Custom";
+
+// Tab Bar
+"home" = "Home";
+"settings" = "Settings";

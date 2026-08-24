@@ -73,14 +73,20 @@ struct OTPVerificationView: View {
                     Button {
                         Task { await viewModel.verifyOTP() }
                     } label: {
-                        if viewModel.isLoading {
-                            ProgressView()
-                                .tint(.white)
-                                .frame(maxWidth: .infinity)
-                        } else {
+                        ZStack {
+                            // Hidden text to maintain height
                             Text("verify".localized)
-                                .frame(maxWidth: .infinity)
+                                .opacity(0)
+
+                            // Actual content
+                            if viewModel.isLoading {
+                                ProgressView()
+                                    .tint(.white)
+                            } else {
+                                Text("verify".localized)
+                            }
                         }
+                        .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(PrimaryButtonStyle())
                     .disabled(!viewModel.isOTPComplete || viewModel.isLoading)

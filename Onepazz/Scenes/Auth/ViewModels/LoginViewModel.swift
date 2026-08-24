@@ -16,9 +16,17 @@ import Combine
 final class LoginViewModel: ObservableObject {
     // MARK: - Published Properties
     @Published var countryCode: String = "+855"
-    @Published var phoneDigits: String = ""
+    @Published var phoneDigits: String = "" {
+        didSet {
+            // Limit to 9 digits for Cambodian phone numbers
+            if phoneDigits.count > 9 {
+                phoneDigits = String(phoneDigits.prefix(9))
+            }
+        }
+    }
     @Published var isLoading: Bool = false
     @Published var error: Error?
+    @Published var errorMessage: String?
     @Published var shouldNavigateToOTP: Bool = false
 
     // MARK: - Dependencies
@@ -39,23 +47,33 @@ final class LoginViewModel: ObservableObject {
     }
 
     // MARK: - Actions
-    func requestOTP() async {
+    func checkPhone() async {
         guard isValid else { return }
 
         isLoading = true
-        error = nil
+        errorMessage = nil
 
-        do {
-            let _ = try await authRepository.requestOTP(
-                phone: phoneDigits,
-                countryCode: countryCode
-            )
+        let result = await authRepository.checkPhone(
+            phone: phoneDigits,
+            countryCode: countryCode
+        )
+
+        isLoading = false
+
+        switch result {
+        case .success:
+            // Phone verified successfully, navigate to OTP
             shouldNavigateToOTP = true
-            isLoading = false
-        } catch let err {
-            error = err
-            isLoading = false
+
+        case .failure(let error):
+            // Show error message from API or network
+            errorMessage = error.localizedDescription
         }
+    }
+
+    // Legacy method - keep for backward compatibility
+    func requestOTP() async {
+        await checkPhone()
     }
 }
 

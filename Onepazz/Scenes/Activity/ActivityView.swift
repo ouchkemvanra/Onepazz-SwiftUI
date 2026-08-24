@@ -17,21 +17,6 @@ struct ActivityView: View {
                 // Calendar with Pointer (new design)
                 CalendarWithPointerView(currentMonth: $currentMonth, selectedDate: $selectedDate)
 
-                // To switch back to old calendar, replace the line above with:
-                // CalendarView(currentMonth: $currentMonth, selectedDate: $selectedDate)
-                //     .padding(.horizontal, Spacing.xl)
-                //
-                // Text("Today is\nChest Day")
-                //     .appFont(.title3)
-                //     .foregroundStyle(AppColor.textPrimary)
-                //     .padding(Spacing.l)
-                //     .frame(maxWidth: .infinity, alignment: .leading)
-                //     .background(
-                //         RoundedRectangle(cornerRadius: Radius.l, style: .continuous)
-                //             .fill(Color.cyan.opacity(0.2))
-                //     )
-                //     .padding(.horizontal, Spacing.xl)
-
                 // Activity Chart
                 ActivityChartCard()
                     .padding(.horizontal, Spacing.xl)
@@ -39,7 +24,7 @@ struct ActivityView: View {
                 // Monthly Activities
                 MonthlyActivitiesCard()
                     .padding(.horizontal, Spacing.xl)
-                    .padding(.bottom, Spacing.xl)
+                    .padding(.bottom, 100)
             }
             .padding(.top, Spacing.m)
         }
@@ -180,74 +165,141 @@ struct DayCell: View {
 // MARK: - Activity Chart Card
 
 struct ActivityChartCard: View {
-    let gymCount = 212
-    let badmintonCount = 146
+    @Environment(\.theme) var theme
 
-    var totalCount: Int {
-        gymCount + badmintonCount
+    let moveCalories = 120
+    let moveGoal = 290
+    let exerciseMinutes = 21
+    let exerciseGoal = 30
+    let standHours = 4
+    let standGoal = 12
+
+    var movePercentage: Double {
+        Double(moveCalories) / Double(moveGoal)
     }
 
-    var gymPercentage: Double {
-        Double(gymCount) / Double(totalCount)
+    var exercisePercentage: Double {
+        Double(exerciseMinutes) / Double(exerciseGoal)
+    }
+
+    var standPercentage: Double {
+        Double(standHours) / Double(standGoal)
     }
 
     var body: some View {
-        HStack(alignment: .center, spacing: Spacing.l) {
-            // Pie Chart
+        HStack(spacing: Spacing.xl) {
+            // Progress bars section
+            VStack(alignment: .leading, spacing: Spacing.l) {
+                ActivityProgressRow(
+                    title: "move".localized,
+                    value: "\(moveCalories)/\(moveGoal) cal",
+                    percentage: movePercentage,
+                    color: .pink
+                )
+
+                ActivityProgressRow(
+                    title: "exercise".localized,
+                    value: "\(exerciseMinutes)/\(exerciseGoal) mins",
+                    percentage: exercisePercentage,
+                    color: Color(red: 0.5, green: 0.9, blue: 0.8)
+                )
+
+                ActivityProgressRow(
+                    title: "stand".localized,
+                    value: "\(standHours)/\(standGoal) hrs",
+                    percentage: standPercentage,
+                    color: Color(red: 0.4, green: 0.8, blue: 1.0)
+                )
+            }
+
+            Spacer()
+
+            // Concentric Ring Chart
             ZStack {
-                // Gym section (dark blue)
+                // Outer ring background - Move
                 Circle()
-                    .trim(from: 0, to: gymPercentage)
-                    .stroke(Color(red: 0.15, green: 0.25, blue: 0.35), lineWidth: 35)
+                    .stroke(Color.pink.opacity(0.15), style: StrokeStyle(lineWidth: 18, lineCap: .round))
+                    .frame(width: 120, height: 120)
+
+                // Outer ring - Move (pink)
+                Circle()
+                    .trim(from: 0, to: movePercentage)
+                    .stroke(Color.pink, style: StrokeStyle(lineWidth: 18, lineCap: .round))
                     .frame(width: 120, height: 120)
                     .rotationEffect(.degrees(-90))
 
-                // Badminton section (cyan)
+                // Middle ring background - Exercise
                 Circle()
-                    .trim(from: gymPercentage, to: 1)
-                    .stroke(Color.cyan, lineWidth: 35)
-                    .frame(width: 120, height: 120)
+                    .stroke(Color(red: 0.5, green: 0.9, blue: 0.8).opacity(0.15), style: StrokeStyle(lineWidth: 18, lineCap: .round))
+                    .frame(width: 88, height: 88)
+
+                // Middle ring - Exercise (mint/cyan)
+                Circle()
+                    .trim(from: 0, to: exercisePercentage)
+                    .stroke(Color(red: 0.5, green: 0.9, blue: 0.8), style: StrokeStyle(lineWidth: 18, lineCap: .round))
+                    .frame(width: 88, height: 88)
                     .rotationEffect(.degrees(-90))
-                // Center values
-                VStack(spacing: 0) {
-                    Text("\(gymCount)")
-                        .font(.system(size: 20, weight: .bold))
-                        .foregroundColor(Color(red: 0.15, green: 0.25, blue: 0.35))
 
-                    Text("\(badmintonCount)")
-                        .font(.system(size: 20, weight: .bold))
-                        .foregroundColor(.cyan)
-                }
+                // Inner ring background - Stand
+                Circle()
+                    .stroke(Color(red: 0.4, green: 0.8, blue: 1.0).opacity(0.15), style: StrokeStyle(lineWidth: 18, lineCap: .round))
+                    .frame(width: 56, height: 56)
+
+                // Inner ring - Stand (light blue)
+                Circle()
+                    .trim(from: 0, to: standPercentage)
+                    .stroke(Color(red: 0.4, green: 0.8, blue: 1.0), style: StrokeStyle(lineWidth: 18, lineCap: .round))
+                    .frame(width: 56, height: 56)
+                    .rotationEffect(.degrees(-90))
             }
-            Spacer()
-            // Legend
-            VStack(alignment: .leading, spacing: Spacing.m) {
-                HStack(spacing: Spacing.s) {
-                    Circle()
-                        .fill(Color(red: 0.15, green: 0.25, blue: 0.35))
-                        .frame(width: 8, height: 8)
-
-                    Text("gym".localized)
-                        .appFont(.subhead)
-                        .foregroundStyle(AppColor.textPrimary)
-                }
-
-                HStack(spacing: Spacing.s) {
-                    Circle()
-                        .fill(Color.cyan)
-                        .frame(width: 8, height: 8)
-
-                    Text("badminton".localized)
-                        .appFont(.subhead)
-                        .foregroundStyle(AppColor.textPrimary)
-                }
-            }
-
-            Spacer()
         }
         .padding(Spacing.xl)
-        .background(Color(uiColor: .secondarySystemBackground))
+        .background(Color(theme.colors.surfaceVariant))
         .cornerRadius(Radius.l)
+        .shadow(color: .black.opacity(0.05), radius: 8, x: 0, y: 2)
+    }
+}
+
+// MARK: - Activity Progress Row
+
+struct ActivityProgressRow: View {
+    @Environment(\.theme) var theme
+
+    let title: String
+    let value: String
+    let percentage: Double
+    let color: Color
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            HStack {
+                Text(title)
+                    .font(.system(size: 15, weight: .semibold))
+                    .foregroundColor(Color(theme.colors.textPrimary))
+
+                Spacer()
+
+                Text(value)
+                    .font(.system(size: 13, weight: .medium))
+                    .foregroundColor(Color(theme.colors.textSecondary))
+            }
+
+            // Progress bar
+            GeometryReader { geometry in
+                ZStack(alignment: .leading) {
+                    // Background
+                    Capsule()
+                        .fill(color.opacity(0.2))
+                        .frame(height: 8)
+
+                    // Progress
+                    Capsule()
+                        .fill(color)
+                        .frame(width: geometry.size.width * percentage, height: 8)
+                }
+            }
+            .frame(height: 8)
+        }
     }
 }
 

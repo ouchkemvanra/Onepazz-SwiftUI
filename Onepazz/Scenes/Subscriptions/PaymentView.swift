@@ -22,7 +22,7 @@ struct PaymentView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
                     // Title
-                    Text("Payment")
+                    Text("payment".localized)
                         .font(.system(size: 34, weight: .bold))
                         .foregroundColor(.black)
                         .padding(.horizontal, 16)
@@ -31,15 +31,15 @@ struct PaymentView: View {
                     // Bank Selection
                     VStack(spacing: 12) {
                         BankCard(
-                            bankName: "Wing Bank",
-                            accountNumber: "000122323",
+                            bankName: "wing_bank".localized,
+                            accountNumber: nil,
                             isSelected: viewModel.selectedBank == .wing
                         ) {
                             viewModel.selectedBank = .wing
                         }
 
                         BankCard(
-                            bankName: "ABA Bank",
+                            bankName: "aba_bank".localized,
                             accountNumber: nil,
                             isSelected: viewModel.selectedBank == .aba
                         ) {
@@ -51,7 +51,7 @@ struct PaymentView: View {
                     // Price Breakdown
                     VStack(spacing: 8) {
                         HStack {
-                            Text("Subscription Price")
+                            Text("subscription_price".localized)
                                 .font(.system(size: 15, weight: .regular))
                                 .foregroundColor(.gray)
                             Spacer()
@@ -61,7 +61,7 @@ struct PaymentView: View {
                         }
 
                         HStack {
-                            Text("VAT")
+                            Text("vat".localized)
                                 .font(.system(size: 15, weight: .regular))
                                 .foregroundColor(.gray)
                             Spacer()
@@ -71,7 +71,7 @@ struct PaymentView: View {
                         }
 
                         HStack {
-                            Text("Total")
+                            Text("total".localized)
                                 .font(.system(size: 15, weight: .semibold))
                                 .foregroundColor(.black)
                             Spacer()
@@ -84,7 +84,7 @@ struct PaymentView: View {
                     .padding(.top, 8)
 
                     // Instructions
-                    Text("After completing payment to above account please copy and paste Txn ID into text input below to complete the process")
+                    Text("payment_instructions".localized)
                         .font(.system(size: 13, weight: .regular))
                         .foregroundColor(.gray)
                         .padding(.horizontal, 16)
@@ -94,7 +94,7 @@ struct PaymentView: View {
                     VStack(spacing: 12) {
                         // Account Holder Name
                         HStack(spacing: 8) {
-                            Text("Account Holder Name:")
+                            Text("account_holder_name".localized)
                                 .font(.system(size: 13, weight: .regular))
                                 .foregroundColor(.gray)
 
@@ -112,7 +112,7 @@ struct PaymentView: View {
 
                         // Transaction ID
                         HStack(spacing: 8) {
-                            Text("Txn ID:")
+                            Text("txn_id".localized)
                                 .font(.system(size: 13, weight: .regular))
                                 .foregroundColor(.gray)
 
@@ -137,7 +137,7 @@ struct PaymentView: View {
             Button {
                 viewModel.processPayment(planId: selectedPlan.rawValue)
             } label: {
-                Text("PAY")
+                Text("pay".localized)
                     .font(.system(size: 17, weight: .semibold))
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
@@ -156,9 +156,9 @@ struct PaymentView: View {
         .toolbarBackground(Color(red: 0.96, green: 0.96, blue: 0.96), for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .tint(.black)
-        .loadingOverlay($viewModel.isLoading, message: "Processing...")
-        .alert("Error", isPresented: .constant(viewModel.errorMessage != nil)) {
-            Button("Try Again") {
+        .loadingOverlay($viewModel.isLoading, message: "processing".localized)
+        .alert("error".localized, isPresented: .constant(viewModel.errorMessage != nil)) {
+            Button("try_again".localized) {
                 viewModel.errorMessage = nil
             }
         } message: {
@@ -183,12 +183,12 @@ struct BankCard: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(bankName)
                         .font(.system(size: 17, weight: .semibold))
-                        .foregroundColor(isSelected ? .white : .black)
+                        .foregroundColor(isSelected ? .white : .black.opacity(0.4))
 
                     if let accountNumber = accountNumber {
                         Text(accountNumber)
                             .font(.system(size: 13, weight: .regular))
-                            .foregroundColor(isSelected ? .white.opacity(0.8) : .gray)
+                            .foregroundColor(isSelected ? .white.opacity(0.8) : .gray.opacity(0.4))
                     }
                 }
 
@@ -209,6 +209,7 @@ struct BankCard: View {
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(isSelected ? Color.clear : Color.gray.opacity(0.3), lineWidth: 1)
             )
+            .opacity(isSelected ? 1.0 : 0.6)
         }
         .buttonStyle(.plain)
     }

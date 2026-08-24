@@ -33,7 +33,8 @@ struct ExploreView: View {
                 }
                 .padding(.horizontal, Spacing.xl)
             }
-            .padding(.vertical, Spacing.m)
+            .padding(.top, Spacing.m)
+            .padding(.bottom, 100)
         }
         .background(Color(.systemBackground))
         .navigationTitle("explore".localized)

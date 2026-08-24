@@ -11,6 +11,10 @@ struct User: Codable, Identifiable {
     let refreshToken: String?
 }
 
+struct CheckPhoneData: Decodable {
+    let phone: String
+}
+
 struct OTPRequestParam: Encodable {
     let phone: String
 }
@@ -53,6 +57,47 @@ final class AuthRepository: AuthRepositoryProtocol {
 
     init(api: APIServiceProtocol) {
         self.api = api
+    }
+
+    // MARK: - Phone Check
+
+    func checkPhone(phone: String, countryCode: String) async -> Result<CheckPhoneData, LoginError> {
+        #if DEBUG
+        // Simulate network delay
+        try? await Task.sleep(nanoseconds: 1_000_000_000)
+
+        // Mock success response
+        let mockData = CheckPhoneData(phone: "\(countryCode)\(phone)")
+        return .success(mockData)
+
+        // Uncomment to test error:
+        // return .failure(.phoneNotRegistered("This phone number is not registered in our system"))
+        #else
+        do {
+            let param = CheckPhoneParam(phone: phone)
+            let response = try await api.send(
+                AuthServiceTarget.checkPhone(parameter: param),
+                as: BaseResponse<CheckPhoneData>.self
+            )
+
+            // Check if API call was successful
+            guard response.success, let data = response.data else {
+                // API returned error response with message
+                print("❌ API Error: code=\(response.code), message=\(response.message)")
+                return .failure(LoginError.from(response))
+            }
+
+            return .success(data)
+        } catch let error as DecodingError {
+            // Decoding error - API response format doesn't match our model
+            print("❌ Decoding Error: \(error)")
+            return .failure(.serverError("Unable to process server response"))
+        } catch {
+            // Network error or other error
+            print("❌ Network Error: \(error.localizedDescription)")
+            return .failure(LoginError.from(error))
+        }
+        #endif
     }
 
     // MARK: - OTP Flow

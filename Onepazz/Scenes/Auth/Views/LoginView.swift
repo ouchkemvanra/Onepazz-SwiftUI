@@ -39,12 +39,7 @@ struct LoginView: View {
                     // Phone field
                     PhoneField(
                         countryCode: $viewModel.countryCode,
-                        text: Binding(
-                            get: { viewModel.formattedPhone },
-                            set: { newValue in
-                                viewModel.phoneDigits = newValue.digitsOnly()
-                            }
-                        ),
+                        phoneDigits: $viewModel.phoneDigits,
                         placeholder: "012 678 997"
                     )
                     .focused($focused)
@@ -54,14 +49,20 @@ struct LoginView: View {
                     Button {
                         Task { await viewModel.requestOTP() }
                     } label: {
-                        if viewModel.isLoading {
-                            ProgressView()
-                                .tint(.white)
-                                .frame(maxWidth: .infinity)
-                        } else {
+                        ZStack {
+                            // Hidden text to maintain height
                             Text("continue".localized)
-                                .frame(maxWidth: .infinity)
+                                .opacity(0)
+
+                            // Actual content
+                            if viewModel.isLoading {
+                                ProgressView()
+                                    .tint(.white)
+                            } else {
+                                Text("continue".localized)
+                            }
                         }
+                        .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(PrimaryButtonStyle())
                     .disabled(!viewModel.isValid || viewModel.isLoading)
@@ -79,15 +80,7 @@ struct LoginView: View {
                 sessionManager: env.sessionManager
             )
         }
-        .alert("Error", isPresented: .constant(viewModel.error != nil)) {
-            Button("OK") {
-                viewModel.error = nil
-            }
-        } message: {
-            if let error = viewModel.error {
-                Text(error.localizedDescription)
-            }
-        }
+        .errorAlert($viewModel.errorMessage)
     }
 }
 
@@ -95,8 +88,10 @@ struct LoginView: View {
 /// Follows Single Responsibility Principle - only handles phone input UI
 private struct PhoneField: View {
     @Binding var countryCode: String
-    @Binding var text: String
+    @Binding var phoneDigits: String
     let placeholder: String
+
+    @State private var displayText: String = ""
 
     var body: some View {
         HStack(spacing: Spacing.m) {
@@ -108,10 +103,34 @@ private struct PhoneField: View {
                 .frame(height: 22)
                 .background(Color.gray.opacity(0.3))
 
-            TextField(placeholder, text: $text)
+            TextField(placeholder, text: $displayText)
                 .keyboardType(.numberPad)
                 .textContentType(.telephoneNumber)
                 .appFont(.body)
+                .onChange(of: displayText) { newValue in
+                    // Extract only digits
+                    let digits = newValue.digitsOnly()
+
+                    // Update the binding with raw digits
+                    phoneDigits = digits
+
+                    // Update display with formatted version
+                    let formatted = digits.formattedAsKhPhone()
+                    if formatted != displayText {
+                        displayText = formatted
+                    }
+                }
+                .onChange(of: phoneDigits) { newDigits in
+                    // Sync display when phoneDigits changes externally
+                    let formatted = newDigits.formattedAsKhPhone()
+                    if displayText != formatted {
+                        displayText = formatted
+                    }
+                }
+                .onAppear {
+                    // Initialize display text
+                    displayText = phoneDigits.formattedAsKhPhone()
+                }
         }
         .padding(.vertical, Spacing.m)
         .padding(.horizontal, Spacing.l)

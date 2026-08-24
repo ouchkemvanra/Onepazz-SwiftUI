@@ -46,91 +46,43 @@ struct AppRouter: View {
                 OnboardingView()
                     .environmentObject(env)
             } else if env.isAuthenticated {
-                ZStack {
-                    TabView(selection: $selectedTab) {
-                        NavigationStack {
-                            HomePageView(user: .init(name: "Viseth", avatarImage: "avatar1", visitsThisMonth: 12))
-                            .tint(.blue)
-                            .navigationTitle("")
-                            .toolbar(.hidden, for: .navigationBar)
-                        }
-                        .tabItem {
-                            VStack {
-                                Image(systemName: "house")
-                                Text("Home")
-                            }
-                        }
-                        .tag(0)
-
-                        NavigationStack {
-                            ExploreView()
-                            .tint(.blue)
-                        }
-                        .tabItem {
-                            VStack {
-                                Image(systemName: "dumbbell")
-                                Text("Explore")
-                            }
-                        }
-                        .tag(1)
-
-                        // Empty placeholder for center button
-                        Color.clear
-                            .tabItem {
-                                Image(systemName: "")
-                            }
-                            .tag(2)
-
-                        NavigationStack {
-                            ActivityView()
-                            .tint(.blue)
-                        }
-                        .tabItem {
-                            VStack {
-                                Image(systemName: "figure.run")
-                                Text("Activity")
-                            }
-                        }
-                        .tag(3)
-
-                        NavigationStack {
-                            SettingsView()
-                            .tint(.blue)
-                        }
-                        .tabItem {
-                            VStack {
-                                Image(systemName: "gearshape")
-                                Text("More")
-                            }
-                        }
-                        .tag(4)
+                TabBarContainer(
+                    selectedTab: $selectedTab,
+                    isTabBarVisible: $scanButtonVisibility.isVisible,
+                    onScanTapped: {
+                        showQRScanner = true
                     }
-                    .tint(.red)
-                    .environmentObject(scanButtonVisibility)
-
-                    // Center QR Scan Button
-                    if scanButtonVisibility.isVisible {
-                        VStack {
-                            Spacer()
-                            Button {
-                                showQRScanner = true
-                            } label: {
-                                Circle()
-                                    .fill(Color.black)
-                                    .frame(width: 64, height: 64)
-                                    .overlay(
-                                        Image(systemName: "qrcode.viewfinder")
-                                            .font(.system(size: 28, weight: .medium))
-                                            .foregroundColor(.white)
-                                    )
-                                    .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
+                ) {
+                    ZStack {
+                        switch selectedTab {
+                        case 0:
+                            NavigationStack {
+                                HomePageView(user: .init(name: "Viseth", avatarImage: "avatar1", visitsThisMonth: 12))
+                                    .navigationTitle("")
+                                    .toolbar(.hidden, for: .navigationBar)
                             }
-                            .offset(y: -10)
+                        case 1:
+                            NavigationStack {
+                                ExploreView()
+                            }
+                        case 2:
+                            NavigationStack {
+                                ActivityView()
+                            }
+                        case 3:
+                            NavigationStack {
+                                SettingsView()
+                            }
+                        default:
+                            NavigationStack {
+                                HomePageView(user: .init(name: "Viseth", avatarImage: "avatar1", visitsThisMonth: 12))
+                                    .navigationTitle("")
+                                    .toolbar(.hidden, for: .navigationBar)
+                            }
                         }
-                        .transition(.opacity.combined(with: .scale))
-                        .animation(.easeInOut(duration: 0.2), value: scanButtonVisibility.isVisible)
                     }
                 }
+                .environmentObject(scanButtonVisibility)
                 .sheet(isPresented: $showQRScanner) {
                     QRScannerView()
                 }

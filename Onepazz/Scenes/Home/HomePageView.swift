@@ -34,9 +34,10 @@ struct HomePageView: View {
                 ActivityGridView(selectedFilter: selectedActivityFilter)
             }
             .padding(.horizontal, Spacing.l)
-            .padding(.vertical, Spacing.m)
+            .padding(.top, Spacing.m)
+            .padding(.bottom, 100)
         }
-        .scanButtonVisible(true) 
+        .scanButtonVisible(true)
         .background(Color(.systemBackground))
         .navigationDestination(for: PartnerRoute.self) { route in
             GymDetailView(gym: .mock)
@@ -103,7 +104,7 @@ struct ActivitySection: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: Spacing.m) {
-            Text("Activity")
+            Text("activity".localized)
                 .appFont(.title3)
                 .foregroundStyle(AppColor.textPrimary)
 
@@ -128,7 +129,7 @@ struct RecentVisitSection: View {
     var body: some View {
         VStack(alignment: .leading, spacing: Spacing.m) {
             HStack {
-                Text("Recent Visit")
+                Text("recent_visit".localized)
                     .appFont(.headline)
                     .foregroundStyle(AppColor.textSecondary)
 
@@ -137,7 +138,7 @@ struct RecentVisitSection: View {
                 Button {
                     // Handle view all
                 } label: {
-                    Text("View All")
+                    Text("view_all".localized)
                         .appFont(.subhead)
                         .foregroundStyle(Color.blue)
                 }
@@ -176,7 +177,7 @@ struct GymCard: View {
 
                 // Follow Us badge
                 HStack(spacing: 4) {
-                    Text("FOLLOW US")
+                    Text("follow_us".localized)
                     Image(systemName: "chevron.right")
                 }
                 .appFont(.caption)
@@ -216,7 +217,7 @@ struct GymCard: View {
                 HStack(spacing: 4) {
                     Image(systemName: "checkmark.seal.fill")
                         .font(.system(size: 12))
-                    Text("Standard Member")
+                    Text("standard_member".localized)
                         .appFont(.caption)
                 }
                 .foregroundStyle(.white)
@@ -308,7 +309,7 @@ struct ActivityGymCard: View {
 
                 // Follow Us badge
                 HStack(spacing: 4) {
-                    Text("FOLLOW US")
+                    Text("follow_us".localized)
                         .font(.system(size: 10, weight: .semibold))
                     Circle()
                         .fill(Color.white)
@@ -443,7 +444,7 @@ struct ActivityGymCardV2: View {
                 HStack {
                     Spacer()
                     HStack(spacing: 4) {
-                        Text("FOLLOW US")
+                        Text("follow_us".localized)
                             .font(.system(size: 10, weight: .semibold))
                         Circle()
                             .fill(Color.white)

@@ -33,16 +33,25 @@ final class APIManager: APIServiceProtocol, TokenManagementProtocol {
             // Log Response
             logResponse(response: http, data: data)
 
-            switch http.statusCode {
-            case 200..<300:
-                if let wrapped = try? JSONDecoder().decode(APIWrapper<T>.self, from: data), let value = wrapped.data {
-                    return value
-                }
-                if T.self == Empty.self { return Empty() as! T }
-                return try JSONDecoder().decode(T.self, from: data)
-            default:
+            // Try to decode the response regardless of status code
+            // This allows us to get error messages from 4xx/5xx responses
+            if let wrapped = try? JSONDecoder().decode(APIWrapper<T>.self, from: data), let value = wrapped.data {
+                return value
+            }
+            if T.self == Empty.self { return Empty() as! T }
+
+            // Try direct decode - works for BaseResponse<T> which includes error responses
+            if let decoded = try? JSONDecoder().decode(T.self, from: data) {
+                return decoded
+            }
+
+            // If decoding fails and status is not success, throw error
+            if http.statusCode < 200 || http.statusCode >= 300 {
                 throw NetworkError.requestFailed(http.statusCode)
             }
+
+            // Fallback: try to decode again (will throw if it fails)
+            return try JSONDecoder().decode(T.self, from: data)
         } catch {
             throw NetworkError.transport(error)
         }
